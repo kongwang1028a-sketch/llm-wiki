@@ -33,3 +33,13 @@ type: log
 - 啟動 my-agent 服務（backend PID 7476, frontend PID 9068, bot PID 16260）
 - 發現 Telegram Bot SSL 錯誤（CERTIFICATE_VERIFY_FAILED），未處理
 - 網頁顯示的 WinError 206 為歷史訊息，非當前問題
+
+## [2026-06-25] session | 對話紀錄（下午）
+
+- 研四決定採購 Claude Team 方案（每人 25 USD），每人電腦需有本地 Agent
+- 幫忙整理 Agent 回報問卷答案：
+  - Q1: 202606
+  - Q2: 自建/my-agent
+  - Q3: 遊戲開發輔助/任務追蹤/Telegram Bot整合
+  - Q4: 是
+- 解說本地 Agent vs 雲端 CLI 工具（Kiro CLI）差異
