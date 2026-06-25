@@ -6,15 +6,13 @@ type: log
 
 操作日誌，按時間倒序排列。
 
-## [2026-06-24 20:02] conversation | 查詢月報與專案進度
+## [2026-06-24] session | 對話紀錄
 
-- 查看 Highlight 專案 6 月份工作摘要（45 commits）
-- 從 wiki 調查本月所有任務（Highlight、SuperAceWinDX、BakeBombanza、My-Agent、AuraOfAthena 灰階、Kiro CLI 環境、LLM Wiki）
-- 查看大獎回放目前進度（功能面完成，剩 Prefab 細節 + 正式環境驗證）
-- 新增偏好：「資訊查詢優先順序」、「每次對話都要記錄（即時寫入）」
-- 建立 LLM-Wiki-Backup 排程（每 12 小時自動 commit+push）
-- 確認現有排程：KiroMemoryBackup（22:00）+ LLM-Wiki-Backup（12h），兩個都保留
-- 討論團隊 Wiki 協作方案：評估 Quartz + Cloudflare Pages，最終決定暫不實作
+- 建立 LLM Wiki 系統（基於 Karpathy Gist）
+- 初始化 git + push 到 GitHub
+- 批次攝入 12 份 D:\Kiro 紀錄檔
+- 建立 6 entity + 3 concept 頁面
+- 設定 kiro-memory 確保跨 session 記憶
 
 ## [2026-06-24] ingest | 初始批次攝入 — 12 份原始紀錄
 
@@ -27,3 +25,11 @@ type: log
 
 建立 LLM Wiki 知識庫系統，包含 SCHEMA.md、index.md、log.md。
 基於 Karpathy 的 LLM Wiki 模式。
+
+## [2026-06-25] session | 對話紀錄
+
+- 電腦意外關機後恢復，查看 git log 與 wiki log 確認進度
+- 專案最新 commit: d4fc2aa [新增] 新增按鈕（比 preferences 記錄的 11c6571 更新）
+- 啟動 my-agent 服務（backend PID 7476, frontend PID 9068, bot PID 16260）
+- 發現 Telegram Bot SSL 錯誤（CERTIFICATE_VERIFY_FAILED），未處理
+- 網頁顯示的 WinError 206 為歷史訊息，非當前問題
