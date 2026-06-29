@@ -1,7 +1,7 @@
 ---
 type: entity
 created: 2026-06-24
-updated: 2026-06-24
+updated: 2026-06-29
 sources: [conversations.md, tasks.md, preferences.md, session-2026-06-12.md, reminder.md]
 tags: [project, cocos-creator, game]
 ---
@@ -52,9 +52,27 @@ Cocos Creator 3.8.8 專案，一鍵分享/精華回放功能模組。
 - 78 tests, 6 suites, all passed
 - `HighlightAutoLoader`：Mock 測試載入器
 
+## Bug 修復（2026-06-29）
+
+### 收藏超過 5 個上限
+- **根本原因**：依賴 Server 回傳的 `IsFavorite`（可能為 null/undefined），且有競態視窗
+- **修法**：`FavoriteManager.ts` 改用本地 `Set<number>` 追蹤收藏狀態
+  - 新增 `localFavoriteGameNos: Set<number>`
+  - `addFavorite` 改用 `set.size >= 5` 判斷，立即 `set.add()`（樂觀更新）
+  - `removeFavorite` 立即 `set.delete()`
+  - `getFavoriteCount()` 回傳 `set.size`
+  - `syncFavorites(replays)` 每次 GetReplay 回來後重建 Set
+
+### 多語系 Label 顯示 key 名稱（HIGHLIGHTS_TITLE 等）
+- **根本原因 1**：`UIMultiLang.ts` 只有 `key` 屬性，但 Prefab JSON 存的是 `langKey`，導致 `key` 永遠是空字串
+- **根本原因 2**：`HighlightData.loadMultiLang` 只填 `HighlightData.multiLang`，但 `UIMultiLang` 讀的是 `window['GameTextDict']`，兩者是不同資料來源
+- **修法**：
+  - `UIMultiLang.ts`：新增 `@property langKey`，`onEnable` 改用 `this.key || this.langKey`
+  - `HighlightData.ts`：`loadMultiLang` 載入後同時呼叫 `MultiLangHandler.addGameTextDict(dict)`
+
 ## 待辦
 
-- [ ] Prefab Label 加 UIMultiLang 組件
+- [ ] 確認多語系修復生效（需在 Cocos 預覽確認 console 有 `[HighlightData] loadMultiLang OK`）
 - [ ] 確認 CDN 路徑（gameIconUrl / vendorLogoUrl）
 - [ ] 正式環境測試分享流程
 - [ ] 分享截圖 Prefab（背景、Logo、QR Code）
