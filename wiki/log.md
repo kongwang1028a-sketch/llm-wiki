@@ -43,3 +43,16 @@ type: log
   - Q3: 遊戲開發輔助/任務追蹤/Telegram Bot整合
   - Q4: 是
 - 解說本地 Agent vs 雲端 CLI 工具（Kiro CLI）差異
+
+## 2026-07-01 對話紀錄
+
+### SuperWin Replay API 測試
+
+- 執行 `test_superwin_replay.py`（Direct Command 模式，走 `/drtcmd`，不需 SSO 登入）
+- Server: `https://macross-gke-slot-test.squestjourneypro.com`
+- 前幾次測試 server 回 500（server 端暫時性問題），後來恢復正常
+- **GET_SUPERWIN_REPLAY** ✅ 成功，回傳 96 筆 replay（ark_id=10013251, GameName=AltarRiches）
+- **GET_SUPERWIN_REPLAY_DETAIL** 回 `not found`，因為腳本寫死的 GameNo 不在列表中
+- 透過多種變體測試確認 500 是 server 端問題（簽章錯誤回 400、cmd_id 錯誤回 400，正常請求都回 500）
+- 建議：腳本應改為自動從列表取第一筆 GameNo 來查 detail
+- 提供了給 Server 人員的問題回報範本（已不需要，server 後來自行恢復）
